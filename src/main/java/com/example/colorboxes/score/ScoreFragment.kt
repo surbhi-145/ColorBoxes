@@ -1,6 +1,7 @@
 package com.example.colorboxes.score
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,15 +36,15 @@ class ScoreFragment : Fragment() {
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
 
         viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score)
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(ScoreViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
 
         binding.lifecycleOwner = this
+        binding.scoreViewModel=viewModel
 
-
-        // Navigates back to title when button is pressed
         viewModel.eventPlayAgain.observe(this, Observer { playAgain ->
+            Log.i("ScoreFragment","nav controller called")
             if (playAgain) {
+                Log.i("ScoreFragment","nav controller called")
                 findNavController().navigate(ScoreFragmentDirections.actionScoreFragmentToGameFragment())
                 viewModel.onPlayAgainComplete()
             }

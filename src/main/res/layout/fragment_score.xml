@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+<data>
+    <variable
+        name="scoreViewModel"
+        type="com.example.colorboxes.score.ScoreViewModel" />
+</data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/misc_text"
@@ -29,6 +34,7 @@
 
     <TextView
         android:id="@+id/final_score"
+        android:text="@{String.valueOf(scoreViewModel.score)}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -43,6 +49,7 @@
 
     <Button
         android:id="@+id/button_playAgain"
+        android:onClick="@{()->scoreViewModel.onPlayAgain()}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/play_again"

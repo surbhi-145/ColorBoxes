@@ -1,6 +1,7 @@
 package com.example.colorboxes.game
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.colorboxes.R
 import com.example.colorboxes.databinding.FragmentGameBinding
-
 
 class GameFragment : Fragment(){
 
@@ -33,12 +33,11 @@ class GameFragment : Fragment(){
             false
         )
 
+        viewModelFactory = GameViewModelFactory()
+        viewModel=ViewModelProvider(this,viewModelFactory).get(GameViewModel :: class.java)
 
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = this
-
-        viewModelFactory = GameViewModelFactory()
-        viewModel=ViewModelProvider(this,viewModelFactory).get(GameViewModel :: class.java)
 
         viewModel.gameFinished.observe(this, Observer { newState->
             if(newState) {

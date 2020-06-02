@@ -7,7 +7,6 @@
         <variable
             name="gameViewModel"
             type="com.example.colorboxes.game.GameViewModel" />
-        <import type="androidx.core.content.ContextCompat" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,11 +32,13 @@
 
     <Button
         android:id="@+id/buttonRight"
-        android:text="@{gameViewModel.button2.text}"
-        android:onClick="@{()->gameViewModel.onClickButtonRight()}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:textColor="@{gameViewModel.getDrawableColor(gameViewModel.button2Color)}"
+        android:onClick="@{()->gameViewModel.onClickButtonRight()}"
+        android:text="@{gameViewModel.button2Text}"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -48,11 +49,13 @@
 
     <Button
         android:id="@+id/buttonLeft"
-        android:text="@{gameViewModel.button1.text}"
-        android:onClick="@{()->gameViewModel.onClickButtonLeft()}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:textColor="@{gameViewModel.getDrawableColor(gameViewModel.button1Color)}"
+        android:onClick="@{()->gameViewModel.onClickButtonLeft()}"
+        android:text="@{gameViewModel.button1Text}"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/buttonRight"
         app:layout_constraintEnd_toStartOf="@+id/buttonRight"
         app:layout_constraintHorizontal_bias="0.5"
@@ -61,7 +64,8 @@
 
     <TextView
         android:id="@+id/colorText"
-        android:text="@{gameViewModel.colorText.text}"
+        android:text="@{gameViewModel.hintText}"
+        android:textColor="@{gameViewModel.getDrawableColor(gameViewModel.hintColor)}"
         android:layout_width="242dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
@@ -82,7 +86,7 @@
 
     <TextView
         android:id="@+id/currScore"
-        android:text="@{gameViewModel.score}"
+        android:text="@{String.valueOf(gameViewModel.score)}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
