@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ColorBoxes</string>
+    <string name="play_again">Play Again</string>
+    <string name="your_score_is">Your Score is :</string>
+    <string name="color_boxes">Color Boxes</string>
+    <string name="rules">Rules</string>
+    <string name="play">Play</string>
+</resources>
