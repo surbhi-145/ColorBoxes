@@ -13,11 +13,11 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.colorboxes.R
 import com.example.colorboxes.databinding.FragmentGameBinding
 
-class GameFragment : Fragment(){
+class GameFragment : Fragment() {
 
-    private lateinit var binding : FragmentGameBinding
+    private lateinit var binding: FragmentGameBinding
     private lateinit var viewModelFactory: GameViewModelFactory
-    private lateinit var viewModel : GameViewModel
+    private lateinit var viewModel: GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,15 +34,16 @@ class GameFragment : Fragment(){
         )
 
         viewModelFactory = GameViewModelFactory()
-        viewModel=ViewModelProvider(this,viewModelFactory).get(GameViewModel :: class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
 
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.gameFinished.observe(this, Observer { newState->
-            if(newState) {
+        viewModel.gameFinished.observe(this, Observer { newState ->
+            if (newState) {
                 val currentScore = viewModel.score.value ?: 0
-                val action = GameFragmentDirections.actionGameFragmentToScoreFragment(currentScore)
+                val maxScore =viewModel.maxScore.value ?: 0
+                val action = GameFragmentDirections.actionGameFragmentToScoreFragment(currentScore,maxScore)
                 NavHostFragment.findNavController(this).navigate(action)
                 viewModel.hasGameFinishedComplete()
             }
@@ -50,5 +51,5 @@ class GameFragment : Fragment(){
 
         return binding.root
     }
-
 }
+

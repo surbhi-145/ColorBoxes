@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ScoreViewModel(finalScore : Int) : ViewModel(){
+class ScoreViewModel(finalScore : Int, maxScore : Int) : ViewModel(){
 
     private val _eventPlayAgain =MutableLiveData<Boolean>()
     val eventPlayAgain: LiveData<Boolean>
@@ -15,8 +15,18 @@ class ScoreViewModel(finalScore : Int) : ViewModel(){
     val score: LiveData<Int>
         get() = _score
 
+    private val _maxScore=MutableLiveData<Int>()
+    val maxScore:LiveData<Int>
+        get()=_maxScore
+
+    private val _accuracy = MutableLiveData<Float>()
+    val accuracy: LiveData<Float>
+        get() = _accuracy
+
     init {
         _score.value = finalScore
+        _maxScore.value=maxScore
+        _accuracy.value= score.value?.toFloat()?. div(maxScore.toFloat()) ?. times(100)
     }
 
     fun onPlayAgain() {

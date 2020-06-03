@@ -35,7 +35,7 @@ class ScoreFragment : Fragment() {
 
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
 
-        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score)
+        viewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score, scoreFragmentArgs.maxScore)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ScoreViewModel::class.java)
 
         binding.lifecycleOwner = this

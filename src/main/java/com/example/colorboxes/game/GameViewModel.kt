@@ -20,8 +20,12 @@ class GameViewModel  : ViewModel(){
         const val ONE_SECOND = 1000L
         // This is the total time of the game
         const val COUNTDOWN_TIME = 60000L
-
-        const val PER_ROUND_TIME = 3000L
+        //time for round 0
+        const val ROUND_ZERO_TIME = 3000L
+        //time for round 1
+        const val ROUND_ONE_TIME=2000L
+        //time for round 2
+        const val ROUND_TWO_TIME=1500L
     }
 
     //Timer field
@@ -70,6 +74,9 @@ class GameViewModel  : ViewModel(){
     val score:LiveData<Int>
         get()=_score
 
+    private val _maxScore=MutableLiveData<Int>()
+    val maxScore:LiveData<Int>
+        get()=_maxScore
 
     private lateinit var colorList : MutableList<String>
     private var ans=-1
@@ -97,19 +104,17 @@ class GameViewModel  : ViewModel(){
 
         timer.start()
 
-        perRoundTimer = object : CountDownTimer(PER_ROUND_TIME, ONE_SECOND){
+        perRoundTimer= object : CountDownTimer(ROUND_ZERO_TIME, ONE_SECOND){
 
             override fun onFinish() {
                 setProp()
-                resetTimer()
+                resetRoundTimer()
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                //NOTHING
+
             }
-
         }
-
         perRoundTimer.start()
 
     }
@@ -123,7 +128,7 @@ class GameViewModel  : ViewModel(){
             "purple",
             "orange",
             "pink",
-            "white",
+            "maroon",
             "grey",
             "brown"
         )
@@ -133,13 +138,13 @@ class GameViewModel  : ViewModel(){
     private fun initializeColorCode(){
         colorCode= mapOf(
             "red" to "#FFF80202",
-            "yellow" to "#FFFFEE58",
+            "yellow" to "#EFDB02",
             "blue" to "#FA6BE9FA",
             "green" to "#FF8CF316",
-            "purple" to "#FFDF2DFD",
+            "purple" to "#89169D",
             "orange" to "#FFFB8117",
-            "pink" to "#FFFF0A6C",
-            "white" to "#FDF4E4",
+            "pink" to "#FD6AA5",
+            "maroon" to "#74052D",
             "grey" to "#FFA99595",
             "brown" to "#FF80594C"
 
@@ -147,7 +152,8 @@ class GameViewModel  : ViewModel(){
     }
 
     private fun setProp(){
-        resetTimer()
+        _maxScore.value=maxScore.value ?. plus(1) ?: 0
+        resetRoundTimer()
         colorList.shuffle()
         indexOptions.shuffle()
         ans=indexOptions[0]
@@ -210,21 +216,51 @@ class GameViewModel  : ViewModel(){
         return Color.parseColor(colorCode[color])
     }
 
-    private fun resetTimer(){
-        if(perRoundTimer !=  null){
+    private fun resetRoundTimer() {
+
+        if (perRoundTimer != null) {
             perRoundTimer.cancel()
         }
-        perRoundTimer= object : CountDownTimer(PER_ROUND_TIME, ONE_SECOND){
 
-            override fun onFinish() {
-                setProp()
-                resetTimer()
+
+        if (score.value==null || score.value!!< 15){
+            perRoundTimer = object : CountDownTimer(ROUND_ZERO_TIME, ONE_SECOND) {
+
+                override fun onFinish() {
+                    setProp()
+                    resetRoundTimer()
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+                    //Nothing
+                }
             }
+    }else if(score.value!! <30){
+            perRoundTimer = object : CountDownTimer(ROUND_ONE_TIME, ONE_SECOND) {
 
-            override fun onTick(millisUntilFinished: Long) {
-                //NOTHING
+                override fun onFinish() {
+                    setProp()
+                    resetRoundTimer()
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+                    //Nothing
+                }
+            }
+        }else{
+            perRoundTimer = object : CountDownTimer(ROUND_TWO_TIME, ONE_SECOND) {
+
+                override fun onFinish() {
+                    setProp()
+                    resetRoundTimer()
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+                    //Nothing
+                }
             }
         }
         perRoundTimer.start()
     }
+
 }

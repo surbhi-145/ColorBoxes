@@ -5,4 +5,9 @@
     <string name="color_boxes">Color Boxes</string>
     <string name="rules">Rules</string>
     <string name="play">Play</string>
+    <string name="game_rules">Game Rules</string>
+    <string name="game_description">Colorboxes is a very simple game in which your task is to Select the box in which the color of the text matches the colour that is spelt out by the hint given in the text above the boxes.\n Don\'t get confused with all these colors on the screen and score the maximum that you can before the timer runs out.\n All the best !</string>
+    <string name="correct_answer">The correct answer is the one on the left</string>
+    <string name="score_format">%d / %d</string>
+    <string name="accuracy_string">Your accuracy is : %.2f%% </string>
 </resources>

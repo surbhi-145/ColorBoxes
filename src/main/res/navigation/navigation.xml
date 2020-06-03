@@ -10,10 +10,14 @@
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
             app:destination="@id/gameFragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_titleFragment_to_rulesFragment"
             app:destination="@id/rulesFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
             app:launchSingleTop="true" />
     </fragment>
     <fragment
@@ -25,7 +29,9 @@
             app:destination="@id/scoreFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/gameFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/rulesFragment"
@@ -37,14 +43,23 @@
         android:label="ScoreFragment" >
         <action
             android:id="@+id/action_scoreFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/scoreFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="score"
             app:argType="integer" />
         <action
             android:id="@+id/action_scoreFragment_to_titleFragment"
             app:destination="@id/titleFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/titleFragment"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="maxScore"
+            app:argType="integer" />
     </fragment>
 </navigation>
